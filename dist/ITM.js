@@ -2,8 +2,8 @@ import * as React from 'react';
 export var ITM = function (props) {
     var _a = props.itmNamePrefix, itmNamePrefix = _a === void 0 ? '_itm_' : _a, _b = props.dataLayerPrefix, dataLayerPrefix = _b === void 0 ? 'itm_dl1_' : _b, token = props.token, cid = props.cid, gid = props.gid;
     React.useEffect(function () {
-        var itmTag;
-        var gtmTag;
+        var itmTag = null;
+        var gtmTag = null;
         var dataLayerName = dataLayerPrefix + cid;
         var createScriptTag = function (src) {
             var scripTag = document.createElement('script');

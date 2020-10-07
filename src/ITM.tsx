@@ -34,8 +34,8 @@ export const ITM: React.FC<Props> = props => {
   } = props;
 
   React.useEffect(() => {
-    let itmTag: HTMLScriptElement | null;
-    let gtmTag: HTMLScriptElement | null;
+    let itmTag: HTMLScriptElement | null = null;
+    let gtmTag: HTMLScriptElement | null = null;
     const dataLayerName = dataLayerPrefix + cid;
     const createScriptTag = (src: string) => {
       const scripTag = document.createElement('script');
