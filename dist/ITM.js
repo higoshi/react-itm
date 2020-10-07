@@ -49,7 +49,7 @@ export var ITM = function (props) {
             var _a, _b;
             // @ts-ignore
             if (window[itmCallbackName])
-                delete itmCallbackName;
+                delete window[itmCallbackName];
             if (gtmTag === null || gtmTag === void 0 ? void 0 : gtmTag.parentElement)
                 (_a = gtmTag === null || gtmTag === void 0 ? void 0 : gtmTag.parentElement) === null || _a === void 0 ? void 0 : _a.removeChild(gtmTag);
             if (itmTag === null || itmTag === void 0 ? void 0 : itmTag.parentElement)
