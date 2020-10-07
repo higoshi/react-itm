@@ -50,7 +50,7 @@ export const ITM: React.FC<Props> = props => {
 
     const loadGtm = (data: GTMData) => {
       // @ts-ignore
-      const gtmDataLayer: {[key: string]: any}[] = window[dl] = window[dl] || [];
+      const gtmDataLayer: {[key: string]: any}[] = window[dataLayerName] = window[dataLayerName] || [];
       gtmDataLayer.push({
         'itm.auto_cid': cid,
         'itm.auto_im_api_token': token,
@@ -85,8 +85,7 @@ export const ITM: React.FC<Props> = props => {
     // @ts-ignore
     window[itmCallbackName] = itmCallback;
 
-    itmTag = document.createElement('script');
-    itmTag.src = '//sync.im-apps.net/imid/segment?callback=' + itmCallbackName + '&token=' + token + '&need_created=True';
+    itmTag = createScriptTag('//sync.im-apps.net/imid/segment?callback=' + itmCallbackName + '&token=' + token + '&need_created=True');
 
     return () => {
       // @ts-ignore

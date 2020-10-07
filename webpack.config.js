@@ -1,13 +1,32 @@
 const path = require('path');
+const glob = require('glob');
 
+const projectRoot = path.resolve(__dirname);
 const publicRoot = path.resolve(__dirname, 'public');
+const jsSrcRoot = path.resolve(__dirname, 'src');
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.tsx',
+  entry: async () => {
+    const files = await new Promise((resolve, reject) => {
+      glob(`${projectRoot}/src/*.tsx`, (err, matches) => {
+        if (err) return reject(err);
+        resolve(matches)
+      });
+    });
+
+    const namePathPair = Object.fromEntries(files.map(file => {
+      const filePath = path.parse(file);
+      const entry = path.relative(jsSrcRoot, path.join(filePath.dir, filePath.name));
+      return [entry, file];
+    }));
+
+
+    return namePathPair;
+  },
   output: {
-    filename: 'index.js',
     path: path.join(__dirname, 'dist'),
+    publicPath: '/js/',
   },
   module: {
     rules: [
@@ -30,6 +49,6 @@ module.exports = {
     publicPath: '/js/',
     host: '0.0.0.0',
     port: '9080',
-    public: '0.0.0.0:9080',
+    public: '0.0.0.0:9081',
   },
 }

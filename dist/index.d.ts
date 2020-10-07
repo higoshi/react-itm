@@ -1,1 +1,1 @@
-export { ITM } from './ITM';
+export { ITM } from './components/ITM';

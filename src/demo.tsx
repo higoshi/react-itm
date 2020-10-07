@@ -1,8 +1,8 @@
 import React from 'react';
-import * as ReactDOM from 'react-dom';
-import {ITM} from './ITM';
+import ReactDOM from 'react-dom';
+import { ITM } from './components/ITM'
 
 const element = document.getElementById('app');
 ReactDOM.render(<>
-  <ITM token="aaa" cid={1234} gid="goihpj["></ITM>
-</>, element);
+  <ITM token="TOKENTOKEN" cid={100000} gid="GTM-XXXX"></ITM>
+</>, element)
