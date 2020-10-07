@@ -1,5 +1,5 @@
 {
-  "name": "@intimatemerfer/itm",
+  "name": "@intimatemerfer/react-itm",
   "version": "1.0.0",
   "scripts": {
     "dev": "webpack-dev-server",
