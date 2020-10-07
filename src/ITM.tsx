@@ -48,22 +48,20 @@ export const ITM: React.FC<Props> = props => {
       return scripTag;
     };
 
-    const loadGtm = function(data: GTMData) {
+    const loadGtm = (data: GTMData) => {
       // @ts-ignore
       const gtmDataLayer: {[key: string]: any}[] = window[dl] = window[dl] || [];
       gtmDataLayer.push({
-        "itm.auto_cid": cid,
-        "itm.auto_im_api_token": token,
+        'itm.auto_cid': cid,
+        'itm.auto_im_api_token': token,
       });
       if (data) gtmDataLayer.push(data);
       gtmDataLayer.push({
-        "gtm.start": new Date().getTime(),
-        event: "gtm.js",
+        'gtm.start': new Date().getTime(),
+        event: 'gtm.js',
       });
 
-      console.log(data);
-
-      gtmTag = createScriptTag("//www.googletagmanager.com/gtm.js?id=" + gid + ((dataLayerName != "dataLayer") ? ("&l=" + dataLayerName) : ""));
+      gtmTag = createScriptTag('//www.googletagmanager.com/gtm.js?id=' + gid + ((dataLayerName != 'dataLayer') ? ('&l=' + dataLayerName) : ''));
     };
 
     const itmCallbackName = itmNamePrefix + '_c' + cid;
@@ -88,11 +86,11 @@ export const ITM: React.FC<Props> = props => {
     window[itmCallbackName] = itmCallback;
 
     itmTag = document.createElement('script');
-    itmTag.src = "//sync.im-apps.net/imid/segment?callback=" + itmCallbackName + "&token=" + token + "&need_created=True";
+    itmTag.src = '//sync.im-apps.net/imid/segment?callback=' + itmCallbackName + '&token=' + token + '&need_created=True';
 
     return () => {
       // @ts-ignore
-      if (window['itmCallbackName']) delete itmCallbackName;
+      if (window[itmCallbackName]) delete itmCallbackName;
       if (gtmTag?.parentElement) gtmTag?.parentElement?.removeChild(gtmTag);
       if (itmTag?.parentElement) itmTag?.parentElement?.removeChild(itmTag);
     }
