@@ -90,7 +90,7 @@ export const ITM: React.FC<Props> = props => {
 
     return () => {
       // @ts-ignore
-      if (window[itmCallbackName]) delete itmCallbackName;
+      if (window[itmCallbackName]) delete window[itmCallbackName];
       if (gtmTag?.parentElement) gtmTag?.parentElement?.removeChild(gtmTag);
       if (itmTag?.parentElement) itmTag?.parentElement?.removeChild(itmTag);
     }
