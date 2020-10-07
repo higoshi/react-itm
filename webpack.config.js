@@ -49,6 +49,6 @@ module.exports = {
     publicPath: '/js/',
     host: '0.0.0.0',
     port: '9080',
-    public: '0.0.0.0:9081',
+    public: '0.0.0.0:9080',
   },
 }
