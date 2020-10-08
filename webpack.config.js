@@ -27,7 +27,10 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'dist'),
     publicPath: '/js/',
-    libraryTarget: 'commonjs2',
+    libraryTarget: 'umd',
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
   module: {
     rules: [
@@ -39,9 +42,6 @@ module.exports = {
         ],
       },
     ],
-  },
-  resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
   devServer: {
     hot: true,

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 interface IMSyncCallbackData {
   imid: string;
@@ -34,60 +34,61 @@ export const ITM: React.FC<Props> = props => {
   } = props;
 
   React.useEffect(() => {
-    if (typeof window !== 'object') return;
-
     let itmTag: HTMLScriptElement | null = null;
     let gtmTag: HTMLScriptElement | null = null;
-    const dataLayerName = dataLayerPrefix + cid;
-    const createScriptTag = (src: string) => {
-      const scripTag = document.createElement('script');
-      scripTag.src = src;
-      scripTag.async = true;
-      scripTag.type = 'text/javascript';
-      const scriptTop = document.getElementsByTagName('script')[0];
-      scriptTop.parentNode.insertBefore(scripTag, scriptTop);
 
-      return scripTag;
-    };
+    if (typeof window == 'object') {
+      const dataLayerName = dataLayerPrefix + cid;
+      const createScriptTag = (src: string) => {
+        const scripTag = document.createElement('script');
+        scripTag.src = src;
+        scripTag.async = true;
+        scripTag.type = 'text/javascript';
+        const scriptTop = document.getElementsByTagName('script')[0];
+        scriptTop.parentNode.insertBefore(scripTag, scriptTop);
 
-    const loadGtm = (data: GTMData) => {
+        return scripTag;
+      };
+
+      const loadGtm = (data: GTMData) => {
+        // @ts-ignore
+        const gtmDataLayer: {[key: string]: any}[] = window[dataLayerName] = window[dataLayerName] || [];
+        gtmDataLayer.push({
+          'itm.auto_cid': cid,
+          'itm.auto_im_api_token': token,
+        });
+        if (data) gtmDataLayer.push(data);
+        gtmDataLayer.push({
+          'gtm.start': new Date().getTime(),
+          event: 'gtm.js',
+        });
+
+        gtmTag = createScriptTag('//www.googletagmanager.com/gtm.js?id=' + gid + ((dataLayerName != 'dataLayer') ? ('&l=' + dataLayerName) : ''));
+      };
+
+      const itmCallbackName = itmNamePrefix + '_c' + cid;
+      const itmCallback = (callbackData: IMSyncCallbackData) => {
+        const {
+          imid,
+          imid_created,
+          imuid = '',
+          meta = {}
+        } = callbackData;
+        const segment_eids = ',' + callbackData.segment_eids + ',';
+
+        loadGtm({
+          imid,
+          imid_created,
+          imuid,
+          segment_eids,
+          meta,
+        })
+      }
       // @ts-ignore
-      const gtmDataLayer: {[key: string]: any}[] = window[dataLayerName] = window[dataLayerName] || [];
-      gtmDataLayer.push({
-        'itm.auto_cid': cid,
-        'itm.auto_im_api_token': token,
-      });
-      if (data) gtmDataLayer.push(data);
-      gtmDataLayer.push({
-        'gtm.start': new Date().getTime(),
-        event: 'gtm.js',
-      });
+      window[itmCallbackName] = itmCallback;
 
-      gtmTag = createScriptTag('//www.googletagmanager.com/gtm.js?id=' + gid + ((dataLayerName != 'dataLayer') ? ('&l=' + dataLayerName) : ''));
-    };
-
-    const itmCallbackName = itmNamePrefix + '_c' + cid;
-    const itmCallback = (callbackData: IMSyncCallbackData) => {
-      const {
-        imid,
-        imid_created,
-        imuid = '',
-        meta = {}
-      } = callbackData;
-      const segment_eids = ',' + callbackData.segment_eids + ',';
-
-      loadGtm({
-        imid,
-        imid_created,
-        imuid,
-        segment_eids,
-        meta,
-      })
+      itmTag = createScriptTag('//sync.im-apps.net/imid/segment?callback=' + itmCallbackName + '&token=' + token + '&need_created=True');
     }
-    // @ts-ignore
-    window[itmCallbackName] = itmCallback;
-
-    itmTag = createScriptTag('//sync.im-apps.net/imid/segment?callback=' + itmCallbackName + '&token=' + token + '&need_created=True');
 
     return () => {
       // @ts-ignore
