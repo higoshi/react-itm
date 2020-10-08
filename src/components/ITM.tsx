@@ -34,7 +34,7 @@ export const ITM: React.FC<Props> = props => {
   } = props;
 
   React.useEffect(() => {
-    if (typeof window === 'undefined') return;
+    if (typeof window !== 'object') return;
 
     let itmTag: HTMLScriptElement | null = null;
     let gtmTag: HTMLScriptElement | null = null;
@@ -95,7 +95,7 @@ export const ITM: React.FC<Props> = props => {
       if (gtmTag?.parentElement) gtmTag?.parentElement?.removeChild(gtmTag);
       if (itmTag?.parentElement) itmTag?.parentElement?.removeChild(itmTag);
     }
-  }, [typeof location !== 'undefined' && location?.href]);
+  }, [typeof location === 'object' && location.href]);
 
   return <></>;
 }
