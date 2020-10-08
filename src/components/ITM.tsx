@@ -93,7 +93,7 @@ export const ITM: React.FC<Props> = props => {
       if (gtmTag?.parentElement) gtmTag?.parentElement?.removeChild(gtmTag);
       if (itmTag?.parentElement) itmTag?.parentElement?.removeChild(itmTag);
     }
-  }, [location?.href]);
+  }, [location && location?.href]);
 
   return <></>;
 }
