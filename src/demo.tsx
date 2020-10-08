@@ -4,5 +4,5 @@ import { ITM } from './components/ITM'
 
 const element = document.getElementById('app');
 ReactDOM.render(<>
-  <ITM token="TOKENTOKEN" cid={100000} gid="GTM-XXXX"></ITM>
+  <ITM token="VXoW9wEaCAYxiIkb8Mzm7Q" cid={1005864} gid="GTM-PLTSPQN"></ITM>
 </>, element)
