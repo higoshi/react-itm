@@ -7,6 +7,9 @@
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
   "license": "MIT",
   "devDependencies": {
     "@types/react": "^16.9.51",
