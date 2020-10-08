@@ -1,6 +1,6 @@
 {
   "name": "@intimatemerger/react-itm",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "dev": "webpack-dev-server",
     "build": "webpack --config webpack.config.prod.js"
