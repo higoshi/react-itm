@@ -34,6 +34,8 @@ export const ITM: React.FC<Props> = props => {
   } = props;
 
   React.useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     let itmTag: HTMLScriptElement | null = null;
     let gtmTag: HTMLScriptElement | null = null;
     const dataLayerName = dataLayerPrefix + cid;
@@ -93,7 +95,7 @@ export const ITM: React.FC<Props> = props => {
       if (gtmTag?.parentElement) gtmTag?.parentElement?.removeChild(gtmTag);
       if (itmTag?.parentElement) itmTag?.parentElement?.removeChild(itmTag);
     }
-  }, [location && location?.href]);
+  }, [typeof location !== 'undefined' && location?.href]);
 
   return <></>;
 }
