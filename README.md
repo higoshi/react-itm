@@ -2,7 +2,7 @@
 
 ## Install
 ```
-$ yarn install @intimatemerger/react-itm
+$ yarn add @intimatemerger/react-itm
 ```
 
 ## Usage
