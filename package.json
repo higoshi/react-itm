@@ -1,5 +1,5 @@
 {
-  "name": "@intimatemerfer/react-itm",
+  "name": "@intimatemerger/react-itm",
   "version": "1.0.0",
   "scripts": {
     "dev": "webpack-dev-server",
