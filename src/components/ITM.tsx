@@ -37,13 +37,14 @@ export const ITM: React.FC<Props> = props => {
     let itmTag: HTMLScriptElement | null = null;
     let gtmTag: HTMLScriptElement | null = null;
 
-    if (typeof window == 'object') {
+    if (typeof window !== 'undefined') {
       const dataLayerName = dataLayerPrefix + cid;
       const createScriptTag = (src: string) => {
         const scripTag = document.createElement('script');
         scripTag.src = src;
         scripTag.async = true;
         scripTag.type = 'text/javascript';
+
         const scriptTop = document.getElementsByTagName('script')[0];
         scriptTop.parentNode.insertBefore(scripTag, scriptTop);
 
@@ -97,7 +98,7 @@ export const ITM: React.FC<Props> = props => {
       gtmTag?.parentElement?.removeChild(gtmTag);
       itmTag?.parentElement?.removeChild(itmTag);
     }
-  }, [typeof location === 'object' && location.href]);
+  }, [typeof location !== 'undefined' && location.href]);
 
   return <></>;
 }
