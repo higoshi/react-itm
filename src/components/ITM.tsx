@@ -3,17 +3,17 @@ import React from 'react';
 interface IMSyncCallbackData {
   imid: string;
   imid_created: string;
-  segment_eids: string[],
+  segment_eids: string[];
   imuid?: string;
   meta?: any;
 }
 
 interface GTMData {
-  imid: string,
-  imid_created: string,
-  segment_eids: string,
-  imuid: string,
-  meta: any,
+  imid: string;
+  imid_created: string;
+  segment_eids: string;
+  imuid: string;
+  meta: any;
 }
 
 interface Props {
@@ -21,7 +21,7 @@ interface Props {
   dataLayerPrefix?: string;
   token: string;
   cid: number;
-  gid: string,
+  gid: string;
 }
 
 export const ITM: React.FC<Props> = props => {
@@ -72,7 +72,7 @@ export const ITM: React.FC<Props> = props => {
           imid,
           imid_created,
           imuid = '',
-          meta = {}
+          meta = {},
         } = callbackData;
         const segment_eids = ',' + callbackData.segment_eids + ',';
 
@@ -93,8 +93,9 @@ export const ITM: React.FC<Props> = props => {
     return () => {
       // @ts-ignore
       if (window[itmCallbackName]) delete window[itmCallbackName];
-      if (gtmTag?.parentElement) gtmTag?.parentElement?.removeChild(gtmTag);
-      if (itmTag?.parentElement) itmTag?.parentElement?.removeChild(itmTag);
+
+      gtmTag?.parentElement?.removeChild(gtmTag);
+      itmTag?.parentElement?.removeChild(itmTag);
     }
   }, [typeof location === 'object' && location.href]);
 
